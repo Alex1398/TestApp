@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../screens/otp_screen.dart';
 import '../../services/device_characteristics.dart';
 import '../../viewModels/connect_your_wallet_vm.dart';
 
@@ -38,30 +37,7 @@ class ConnectYourWalletBody extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.text,
                   validator: (value) {
-                    String mobile = connectYourWallerVm.validateMobile(value);
-                    String email = connectYourWallerVm.validateEmail(value);
-                    if (mobile.isNotEmpty && email.isNotEmpty) {
-                      if (value.contains(RegExp(r'[a-zA-Z]'))) {
-                        return email;
-                      }
-                      return mobile;
-                    }
-
-                    if (email.isEmpty) {
-                      connectYourWallerVm.sendEmail(context, value);
-                    }
-
-                    if (mobile.isEmpty) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => OtpScreen(
-                              dialCode: connectYourWallerVm.countryCode,
-                              phone: value),
-                        ),
-                      );
-                    }
-
-                    return null;
+                    return connectYourWallerVm.validator(context, value);
                   },
                 ),
               ),

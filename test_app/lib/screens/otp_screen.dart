@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/viewModels/otp_vm.dart';
 
+import '../viewModels/otp_vm.dart';
+import '../widgets/otp/otp_header.dart';
 import '../services/device_characteristics.dart';
-import '../widgets/connect_your_wallet/connect_your_wallet_header.dart';
 import '../widgets/otp/otp_body.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -34,7 +34,7 @@ class OtpScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const ConnectYourWalletHeader(),
+                const OtpHeader(),
                 ChangeNotifierProvider.value(
                   value: OtpVm(),
                   child: OtpBody(dialCode: dialCode, phone: phone),

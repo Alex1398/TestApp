@@ -11,12 +11,15 @@ class OtpHeader extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            'we\'ve sent you a code',
+            'We\'ve sent you a code',
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
             ),
           ),
+        ),
+        SizedBox(
+          height: 10,
         ),
         FittedBox(
           fit: BoxFit.scaleDown,

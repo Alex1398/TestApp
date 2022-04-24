@@ -42,25 +42,25 @@ class OtpVm extends ChangeNotifier {
         timeout: const Duration(seconds: 120));
   }
 
-  // Future<void> submit(BuildContext context, String pin) async {
-  //   try {
-  //     var userPhone = await FirebaseAuth.instance
-  //         .linkWithCredential(PhoneAuthProvider.credential(
-  //             verificationId: _verificationCode, smsCode: pin));
+  Future<void> submitVerify(BuildContext context, String pin) async {
+    try {
+      PhoneAuthCredential phoneCredentials = PhoneAuthProvider.credential(
+          verificationId: _verificationCode, smsCode: pin);
 
-  //     if (userPhone.user != null) {
-  //       showCupertinoDialog(
-  //         context: context,
-  //         builder: (context) =>
-  //             const CustomDialog(title: 'Success', message: 'Success'),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     showCupertinoDialog(
-  //       context: context,
-  //       builder: (context) =>
-  //           const CustomDialog(title: 'Error', message: 'Unknow Error'),
-  //     );
-  //   }
-  // }
+      await FirebaseAuth.instance.signInWithCredential(phoneCredentials);
+
+      showCupertinoDialog(
+        context: context,
+        builder: (context) =>
+            const CustomDialog(title: 'Success', message: 'Success'),
+      );
+    } catch (e) {
+      showCupertinoDialog(
+        context: context,
+        builder: (context) => CustomDialog(
+            title: 'Error',
+            message: (e.message != null) ? e.message : 'Unknow Error'),
+      );
+    }
+  }
 }

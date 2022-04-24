@@ -1,12 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/viewModels/otp_vm.dart';
-
-import '../../services/device_characteristics.dart';
-import '../dialogs/custom_dialog.dart';
 
 class OtpBody extends StatefulWidget {
   final String phone;
@@ -46,10 +41,10 @@ class _OtpBodyState extends State<OtpBody> with WidgetsBindingObserver {
   }
 
   final BoxDecoration pinPutDecoration = BoxDecoration(
-    color: const Color.fromRGBO(43, 46, 66, 1),
-    borderRadius: BorderRadius.circular(10.0),
+    color: const Color.fromARGB(255, 255, 255, 255),
+    //borderRadius: BorderRadius.circular(10.0),
     border: Border.all(
-      color: const Color.fromRGBO(126, 203, 224, 1),
+      color: const Color.fromARGB(255, 0, 0, 0),
     ),
   );
 
@@ -57,39 +52,29 @@ class _OtpBodyState extends State<OtpBody> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     var otpVm = Provider.of<OtpVm>(context);
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: PinPut(
-            fieldsCount: 6,
-            withCursor: true,
-            textStyle: const TextStyle(fontSize: 20.0, color: Colors.white),
-            focusNode: _pinPutFocusNode,
-            controller: _pinPutController,
-            submittedFieldDecoration: pinPutDecoration,
-            selectedFieldDecoration: pinPutDecoration,
-            followingFieldDecoration: pinPutDecoration,
-            pinAnimationType: PinAnimationType.fade,
-            // onSubmit: (pin) async {
-            //   await otpVm.submit(context, pin);
-            // },
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: PinPut(
+              fieldsCount: 6,
+              withCursor: true,
+              textStyle: const TextStyle(fontSize: 20.0, color: Colors.black),
+              focusNode: _pinPutFocusNode,
+              controller: _pinPutController,
+              submittedFieldDecoration: pinPutDecoration,
+              selectedFieldDecoration: pinPutDecoration,
+              followingFieldDecoration: pinPutDecoration,
+              pinAnimationType: PinAnimationType.fade,
+              onSubmit: (pin) async {
+                await otpVm.submitVerify(context, pin);
+              },
+            ),
           ),
-        ),
-        // TextButton(
-        //   onPressed: () async {
-        //     await otpVm.verifyPhone(context, widget.dialCode, widget.phone);
-        //   },
-        //   child: const Text(
-        //     'Verify',
-        //     style: TextStyle(
-        //       color: Colors.blue,
-        //       fontSize: 15,
-        //       decoration: TextDecoration.underline,
-        //     ),
-        //   ),
-        // ),
-      ],
+        ],
+      ),
     );
   }
 }

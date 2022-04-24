@@ -7,18 +7,30 @@ class ConnectYourWalletHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            'Connect your wallet',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.arrow_back),
+            SizedBox(
+              width: 10,
             ),
-          ),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                'Connect your wallet',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
-        FittedBox(
+        const SizedBox(
+          height: 10,
+        ),
+        const FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
             'we\'ll send you a confirmation code',

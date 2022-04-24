@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/otp_screen.dart';
 import '../widgets/dialogs/custom_dialog.dart';
 
 class ConnectYourWallerVM with ChangeNotifier {
@@ -47,6 +48,34 @@ class ConnectYourWallerVM with ChangeNotifier {
     if (isValid) {
       formKey.currentState.save();
     }
+  }
+
+  String validator(BuildContext context, String value) {
+    String mobile = validateMobile(value);
+    String email = validateEmail(value);
+    if (mobile.isNotEmpty && email.isNotEmpty) {
+      if (value.contains(RegExp(r'[a-zA-Z]'))) {
+        return email;
+      }
+      return mobile;
+    }
+
+    if (email.isEmpty) {
+      sendEmail(context, value);
+    }
+
+    if (mobile.isEmpty) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => OtpScreen(
+            dialCode: _countryCode,
+            phone: value,
+          ),
+        ),
+      );
+    }
+
+    return null;
   }
 
   Widget bottomTextWidget() {
